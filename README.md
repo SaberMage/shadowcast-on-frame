@@ -11,9 +11,10 @@ picture. Steam Frame's SteamOS kernel is built without USB video support
 which is why sound works.
 
 This repo builds the standard Linux `uvcvideo` driver for your exact kernel,
-loads it at every boot, and rebuilds it by itself after SteamOS updates. After that, the ShadowCast appears as a normal
-camera (MJPEG up to 1080p60), and anything that uses cameras can see it,
-including Chromium, Genki Arcade and OBS.
+loads it at every boot, and rebuilds it by itself after SteamOS updates. After
+that, the ShadowCast appears as a normal camera (MJPEG up to 1080p60), and
+anything that uses cameras can see it, including Chromium, Genki Arcade and
+OBS.
 
 ## Install
 
