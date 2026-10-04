@@ -34,8 +34,11 @@ If the Chromium Flatpak is installed, the installer also adds a **Genki
 Arcade** entry to the Steam Frame dashboard's **+ → Launch Program** menu, and
 to desktop mode's app menu. It opens https://arcade.genkithings.com/ in
 Chromium's app mode, in its own window with no browser toolbars, using the
-site's own icon. Skip it with `./install.sh --no-launcher`. If Chromium is
-already open, the window opens inside that Chromium session.
+site's own icon. Skip it with `./install.sh --no-launcher`. It uses its own
+Chromium profile, so it opens its own window even when Chromium is already
+running elsewhere, for example in the desktop session. The first launch shows
+Chromium's "Additional Terms of Service" dialog, and the site asks once for
+camera access.
 
 **SteamOS updates are handled automatically.** If an update brings a new
 kernel, the boot service notices there are no modules for it, waits for the
