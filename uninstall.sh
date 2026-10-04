@@ -11,4 +11,5 @@ for m in uvcvideo videobuf2_vmalloc uvc; do
     grep -q "^$m " /proc/modules && { sudo rmmod "$m" || echo "couldn't unload $m (in use?); it goes away at reboot"; }
 done
 sudo rm -rf /srv/shadowcast-on-frame
+"$(dirname "$(readlink -f "$0")")/src/genki-arcade-launcher.sh" remove
 echo "shadowcast-on-frame removed."

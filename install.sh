@@ -6,7 +6,8 @@
 # from the upstream Linux sources that match your kernel, against Valve's
 # matching kernel headers, then installs them with a boot service.
 #
-#   ./install.sh      build, install and load (asks for your sudo password once)
+#   ./install.sh               build, install and load (asks for your sudo password once)
+#   ./install.sh --no-launcher skip the "Genki Arcade" Launch Program entry
 #
 # After a SteamOS update that changes the kernel, the boot service rebuilds the
 # driver by itself (it needs a network connection at boot).
@@ -67,3 +68,8 @@ for d in /sys/class/video4linux/video*; do
 done
 [ "$found" = 1 ] || echo "    No UVC device attached right now. Plug your capture card or webcam in."
 echo "    Reload the page or restart the browser/app that should see it."
+
+# --- Genki Arcade launcher (user-level, optional) ----------------------------------
+if [ "${1:-}" != --no-launcher ]; then
+    "$REPO/src/genki-arcade-launcher.sh" install || echo "    (couldn't add the Genki Arcade launcher)"
+fi

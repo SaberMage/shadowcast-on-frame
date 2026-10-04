@@ -30,6 +30,13 @@ It asks for your `sudo` password once, near the end. If you've never set one
 on the device, run `passwd` first. Then plug in the ShadowCast, if it isn't
 already, and reload Genki Arcade.
 
+If the Chromium Flatpak is installed, the installer also adds a **Genki
+Arcade** entry to the Steam Frame dashboard's **+ → Launch Program** menu, and
+to desktop mode's app menu. It opens https://arcade.genkithings.com/ in
+Chromium's app mode, in its own window with no browser toolbars, using the
+site's own icon. Skip it with `./install.sh --no-launcher`. If Chromium is
+already open, the window opens inside that Chromium session.
+
 **SteamOS updates are handled automatically.** If an update brings a new
 kernel, the boot service notices there are no modules for it, waits for the
 network, rebuilds and installs them, and loads them, usually within a minute
