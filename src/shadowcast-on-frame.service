@@ -1,0 +1,16 @@
+[Unit]
+Description=Load USB Video Class (UVC) driver for capture cards and webcams
+Documentation=https://github.com/SaberMage/shadowcast-on-frame
+# After a SteamOS update it rebuilds the driver first, which needs the network.
+Wants=network-online.target
+After=network-online.target systemd-modules-load.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/srv/shadowcast-on-frame/load.sh
+# Waiting for the network plus a rebuild can take a few minutes.
+TimeoutStartSec=15min
+
+[Install]
+WantedBy=multi-user.target
