@@ -42,6 +42,9 @@ BUILD="$WORK/headers/usr/lib/modules/$KVER/build"
 BASE="${KVER%%-*}"
 TAG="v${BASE%.0}"
 RAW="https://raw.githubusercontent.com/torvalds/linux/$TAG"
+KORG="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain"
+# raw.githubusercontent.com can rate-limit (HTTP 429); kernel.org has the same files.
+src_fetch() { fetch "$RAW/$1" "$2" 2>/dev/null || fetch "$KORG/$1?h=$TAG" "$2"; }
 SRC="$WORK/src"
 mkdir -p "$SRC"
 log "Downloading the uvcvideo driver from Linux $TAG"
@@ -52,18 +55,18 @@ for f in json.load(open(sys.argv[1])):
     if f["name"].endswith((".c", ".h")):
         print(f["name"])
 PY
-while read -r f; do fetch "$RAW/drivers/media/usb/uvc/$f" "$SRC/$f"; done < "$WORK/uvc.files"
+while read -r f; do src_fetch "drivers/media/usb/uvc/$f" "$SRC/$f"; done < "$WORK/uvc.files"
 
 # uvcvideo's helpers: build only the ones this kernel doesn't already provide.
 exported() { grep -qE "^0x[0-9a-f]+\s+$1\s" "$BUILD/Module.symvers"; }
 MODULES=()
 UVC_OBJS=$(cd "$SRC" && ls uvc_*.c | sed 's/\.c$/.o/' | tr '\n' ' ')
 if ! exported uvc_format_by_guid; then
-    fetch "$RAW/drivers/media/common/uvc.c" "$SRC/uvc.c"
+    src_fetch "drivers/media/common/uvc.c" "$SRC/uvc.c"
     MODULES+=(uvc)
 fi
 if ! exported vb2_vmalloc_memops; then
-    fetch "$RAW/drivers/media/common/videobuf2/videobuf2-vmalloc.c" "$SRC/videobuf2-vmalloc.c"
+    src_fetch "drivers/media/common/videobuf2/videobuf2-vmalloc.c" "$SRC/videobuf2-vmalloc.c"
     MODULES+=(videobuf2-vmalloc)
 fi
 MODULES+=(uvcvideo)
