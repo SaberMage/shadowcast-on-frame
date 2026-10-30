@@ -57,7 +57,9 @@ To remove everything, run `./uninstall.sh`.
 2. Downloads the `uvcvideo` driver source from the upstream Linux release that
    matches your kernel (for example `v6.18`). It also fetches any helpers your
    kernel lacks: on SteamOS 0.3, `uvc` (shared UVC format tables) and
-   `videobuf2-vmalloc`.
+   `videobuf2-vmalloc`. The files come from GitHub's mirror of Linux. If GitHub
+   refuses a download (for example HTTP 429, too many requests), the same file
+   comes from git.kernel.org.
 3. Builds them as your user, and checks they match your kernel's version
    string.
 4. With `sudo`, installs them root-owned to
